@@ -1,2 +1,2 @@
-# Tapology-Webscraper
+# UFC Stats Webscraper
 MMA Data
