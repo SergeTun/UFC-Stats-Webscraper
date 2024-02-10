@@ -17,10 +17,15 @@ for char in letters:
         fighter_links = driver.find_elements(By.CLASS_NAME, 'b-link.b-link_style_black')
 
         for link in fighter_links:
-            fighter_name = link.text
             link.click()
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            Losses = soup.find('i', class_='b-flag__text')
+            Wins = soup.find('i', class_='b-flag_-text')
+            print(r"Wins: {Wins}, Losses: {Losses}")
 
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+
+
 
         driver.back()
     
