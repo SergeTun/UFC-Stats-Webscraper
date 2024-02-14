@@ -15,10 +15,12 @@ def getFightersFromPage(ufc_page_source):
     return total_links
 
 
-def main()
+def main():
     base_url = 'http://www.ufcstats.com/statistics/fighters?char='
-    
     letters = 'abcdefghijklmnopqrstuvwxyz'
+    results = []
+    losses = 0
+    wins = 0
     driver = webdriver.Firefox()
 
     for char in letters:
@@ -28,7 +30,26 @@ def main()
         try:
     
             ufc_page_source = driver.page_source
-            print(char, getFightersFromPage(ufc_page_source))
+            for link in getFightersFromPage(ufc_page_source):
+                driver.get(link)
+                soup = BeautifulSoup(ufc_page_source, 'html.parser')
+                wl_elements = soup.select('td.b-fight-details__table-col')
+                for wl_element in wl_elements:
+                    flag_text_element = wl_element.select_one('.b-flag__text')
+                    if flag_text_element:
+                        result = flag_text_element.get_text(strip=True)
+                        results.append(result)
+                        for result in results:
+                            if result == 'loss':
+                                losses += 1
+                            else:
+                                wins += 1
+                    else:
+                        print("Element not found")
+
+                print(results)
+
+
     
        
         except Exception as e:
