@@ -1,2 +1,3 @@
 # UFC Stats Webscraper
-MMA Data
+
+Iterates over the ufcstats.com website, extracting all the fighters data and creating a sports betting model 
